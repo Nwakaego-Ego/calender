@@ -1,8 +1,12 @@
+import { startOfMonth, endOfMonth, differenceInDays } from "date-fns";
 import React from "react";
 import "./main.css";
 
 const Main = ({ value, onChange }) => {
-  console.log(value);
+  const startMonth = startOfMonth(value);
+  const endMonth = endOfMonth(value);
+  const numDays = differenceInDays(endMonth, startMonth) + 1;
+
   const weekDays = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thur", "Fri"];
 
   return (
@@ -16,7 +20,6 @@ const Main = ({ value, onChange }) => {
         <div className="col-span-3 border border-l-0  p-3">main main</div>
         <div className="border p-3 border-l-0 ">{">"}</div>
         <div className="border p-3 border-l-0 ">{">>"}</div>
-
         {weekDays.map((day, id) => {
           return (
             <div
@@ -29,38 +32,19 @@ const Main = ({ value, onChange }) => {
             </div>
           );
         })}
-
-        <div className="border p-3">1</div>
-        <div className="border border-l-0 p-3 border-t-0">2</div>
-        <div className="border border-l-0 p-3 border-t-0">3</div>
-        <div className="border border-l-0 p-3 border-t-0">4</div>
-        <div className="border border-l-0 p-3 border-t-0">5</div>
-        <div className="border border-l-0 p-3 border-t-0">6</div>
-        <div className="border border-l-0 p-3 border-t-0 ">7</div>
-        <div className="border border-t-0 p-3">8</div>
-        <div className="border border-l-0 border-t-0 p-3">9</div>
-        <div className="border border-l-0 border-t-0 p-3">10</div>
-        <div className="border border-l-0 border-t-0 p-3">11</div>
-        <div className="border border-l-0 border-t-0 p-3">12</div>
-        <div className="border border-l-0 border-t-0 p-3">13</div>
-        <div className="border border-l-0 border-t-0 p-3">14</div>
-        <div className="border border-t-0 p-3">15</div>
-        <div className="border border-l-0 border-t-0 p-3">16</div>
-        <div className="border border-l-0 border-t-0 p-3">17</div>
-        <div className="border border-l-0 border-t-0 p-3">18</div>
-        <div className="border border-l-0 border-t-0 p-3">19</div>
-        <div className="border border-l-0 border-t-0 p-3">20</div>
-        <div className="border border-l-0 border-t-0 p-3">21</div>
-        <div className="border border-t-0 p-3">22</div>
-        <div className="border border-l-0 border-t-0 p-3">23</div>
-        <div className="border border-l-0 border-t-0 p-3">24</div>
-        <div className="border border-l-0 border-t-0 p-3">25</div>
-        <div className="border border-l-0 border-t-0 p-3">26</div>
-        <div className="border border-l-0 border-t-0 p-3">27</div>
-        <div className="border border-l-0 border-t-0 p-3">28</div>
-        <div className="border border-t-0 p-3">29</div>
-        <div className="border border-l-0 border-t-0 p-3">30</div>
-        <div className="border border-l-0 border-t-0 p-3">31</div>
+        {Array.from({ length: numDays }).map((_, index) => {
+          const date = index + 1;
+          return (
+            <div
+              key={index}
+              className={`border border-l-0 p-3 border-t-0 ${
+                date === 1 || 8 || 15 || 22 || 29 ? "left" : " "
+              }`}
+            >
+              {date + 1}
+            </div>
+          );
+        })}
       </div>
     </>
   );

@@ -1,3 +1,9 @@
 .friday {
   border-right: 1px solid #e5e7eb;
 }
+
+.left {
+  border: 1px solid #e5e7eb;
+  border-right: 1px solid #e5e7eb;
+  padding: 18px;
+}
