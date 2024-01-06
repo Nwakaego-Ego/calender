@@ -1,13 +1,19 @@
-import { startOfMonth, endOfMonth, differenceInDays } from "date-fns";
+import { startOfMonth, endOfMonth, differenceInDays, getDay } from "date-fns";
 import React from "react";
 import "./main.css";
 
 const Main = ({ value, onChange }) => {
   const startMonth = startOfMonth(value);
   const endMonth = endOfMonth(value);
+  console.log(endMonth);
   const numDays = differenceInDays(endMonth, startMonth) + 1;
+  const actualDay = startMonth.getDay();
+  // const actualDay = value.getDay();
+  // const suffix = 3 + endMonth.getDay();
 
-  const weekDays = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thur", "Fri"];
+  const prevMonth = () => onChange && onChange(sub(value, { months: 1 }));
+
+  const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
 
   return (
     <>
@@ -25,15 +31,28 @@ const Main = ({ value, onChange }) => {
             <div
               key={id}
               className={`border border-r-0 border-t-0 p-3 font-bold ${
-                day === "Fri" ? "friday" : ""
+                day === "Sat" ? "saturday" : ""
               }`}
             >
               <div> {day}</div>
             </div>
           );
         })}
+
+        {Array.from({ length: actualDay }).map((_, index) => {
+          return (
+            <div className={`border  border-t-0 border-b-0  pt-[62px]  `}></div>
+          );
+        })}
+
+        {/* {Array.from({ length: suffix }).map((_, index) => {
+          return (
+            <div className={`border  border-t-0 border-b-0  pt-[62px]  `}></div>
+          );
+        })} */}
+
         {Array.from({ length: numDays }).map((_, index) => {
-          const date = index + 1;
+          const date = index;
           return (
             <div
               key={index}
