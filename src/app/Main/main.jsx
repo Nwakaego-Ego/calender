@@ -6,6 +6,7 @@ import {
   sub,
   format,
   add,
+  setDate,
 } from "date-fns";
 import React from "react";
 import "./main.css";
@@ -26,6 +27,11 @@ const Main = ({ value, onChange }) => {
 
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
 
+  const handleDayUpdate = (index) => {
+    const date = setDate(value, index);
+    onChange && onChange(date);
+  };
+
   return (
     <>
       <div
@@ -42,7 +48,7 @@ const Main = ({ value, onChange }) => {
           {"<"}
         </div>
         <div className="col-span-3 border border-l-0  p-3 ">
-          {format(value, "LLLL, yyyy")}
+          {format(value, "LLLL yyyy")}
         </div>
         <div
           className="border p-3 border-l-0 cursor-pointer"
@@ -85,12 +91,15 @@ const Main = ({ value, onChange }) => {
 
         {Array.from({ length: numDays }).map((_, index) => {
           const date = index;
+          const isActive = date === value.getDate() - 1;
           return (
             <div
               key={index}
-              className={`border border-l-0 p-3 border-t-0 hover:bg-slate-200 ${
+              className={`  border border-l-0 p-3 border-t-0  ${
                 date === 1 || 8 || 15 || 22 || 29 ? "left" : " "
+              } ${isActive ? "bg-purple-700 text-white" : "hover:bg-slate-200"}
               }`}
+              onClick={() => handleDayUpdate(date + 1)}
             >
               {date + 1}
             </div>
@@ -101,3 +110,6 @@ const Main = ({ value, onChange }) => {
   );
 };
 export default Main;
+
+//  className={`border border-l-0 p-3 border-t-0 hover:bg-slate-200 active:bg-purple-700 ${date === 1 || date === 8 || date === 15 || date === 22 || date === 29 ? "left" : ""} ${isActive ? "bg-purple-700 text-white" : ""}`}
+//       onClick={() => (isActive ? undefined : handleDayUpdate(date + 1))}
